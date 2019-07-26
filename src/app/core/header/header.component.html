@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <h1 title="EcoGlow^3"></h1>
+
+  <!-- Navigatiebalk: koppen -->
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="''">Home</a>
+    </li>
+    <li *ngFor="let doc of docsHeads" class="nav-item">
+      <a class="nav-link" [routerLink]="['docs/' + doc]">{{ doc | titleCaser}}</a>
+    </li>
+  </ul>
+
+     <!-- Navigatiebalk: menu voor account -->
+  <div *ngIf="this.updateCached(); then loggedin else loggedout"> </div>
+
+  <!-- LOGGED IN -->
+  <ng-template #loggedin> 
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        {{ this.username }}
+    </a>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="float: left">
+      <a class="dropdown-item" routerLink="logout">Logout</a>
+    </div>
+  </ng-template>
+  
+  <!-- LOGGED Out -->
+  <ng-template #loggedout> 
+    <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+        Account
+    </a>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="float: left">
+      <a class="dropdown-item" routerLink="login">Login</a>
+      <div class="dropdown-divider"></div>
+      <a class="dropdown-item" routerLink="register">Register</a>
+    </div>
+  </ng-template>
+    
+  </nav>

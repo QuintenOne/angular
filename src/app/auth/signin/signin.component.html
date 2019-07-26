@@ -1,0 +1,21 @@
+<form [formGroup]="form">
+  <div>
+    <h3>SignIn</h3>
+
+    <!--  Veld: email  -->
+    <div class="input-group-prepend">
+      <span class="input-group-text">@</span>
+      <input type="email" formControlName="email" placeholder="Email">
+    </div>
+
+    <!--  Veld: email  --> 
+    <div class="input-group-append">
+      <span class="input-group-text">*</span>
+      <input type="password" formControlName="password" placeholder="Password">
+    </div>
+    
+    <!--  Knop: inloggen  -->
+    <button class="btn primary" type="submit" [disabled]="" (click)="signin()">Sign In</button>
+    
+  </div>
+</form>

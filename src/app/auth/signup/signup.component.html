@@ -1,0 +1,36 @@
+<form [formGroup]="form">
+  <div>
+    <h3>SignUp</h3>
+
+    <!--  Veld: email  -->
+    <div class="input-group-prepend">
+      <span class="input-group-text">@</span>
+      <input type="email" formControlName="email"  placeholder="Email">
+    </div>
+
+    <!-- Veld: gebruikersnaam   -->
+    <div class="input-group-prepend">
+      <span class="input-group-text">👤</span>
+      <input type="text" formControlName="username" placeholder="Username">
+    </div>
+
+    <!--  Veld: wachtwoord  -->
+    <div class="input-group-append">
+      <span class="input-group-text">*</span>
+      <input type="password" formControlName="password" placeholder="Password">
+    </div>
+
+    <!--  Foutmeldingen  -->
+    <!--
+    <div *ngIf="getErrorWithID(0)" class="alert alert-danger" role="alert"> An email is required </div>
+    <div *ngIf="getErrorWithID(0)" class="alert alert-danger" role="alert"> The email is not correctly formatted! </div>
+    <div *ngIf="getErrorWithID(0)" class="alert alert-danger" role="alert"> An username is required </div>
+    <div *ngIf="getErrorWithID(0)" class="alert alert-danger" role="alert"> The password is too short! Atleast 6 characters </div>
+    -->
+    
+    <!--  Knop: registreren
+    -->
+    <button class="btn primary" type="submit" (click)="signup()">Sign Up</button>
+    
+  </div>
+</form>
