@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve -o",
+    "deploy": "ng build --prod --aot && firebase deploy && start chrome.exe https://ecoglow3.firebaseapp.com && echo Done...",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

@@ -4,22 +4,22 @@ import { CanActivate, CanDeactivate, CanLoad } from "@angular/router";
 @Injectable()
 export class AuthGuardActivateIfLoggedIn implements CanActivate, CanLoad {
     canActivate() {
-        return localStorage.getItem('username') != "";
+        return localStorage.getItem('username') == "";
     }
 
     canLoad() {
-        return localStorage.getItem('username') != "";
+        return localStorage.getItem('username') == "";
     }
 }
 
 @Injectable()
 export class AuthGuardActivateIfLoggedOut implements CanActivate, CanLoad {
     canActivate() {
-        return localStorage.getItem('username') == "";
+        return localStorage.getItem('username') != "";
     }
 
     canLoad() {
-        return localStorage.getItem('username') == "";
+        return localStorage.getItem('username') != "";
     }
 }
 

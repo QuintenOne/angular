@@ -17,7 +17,8 @@ var coreRoutes = [
     { path: 'faq',          component: DocumentComponent },  { path: 'FAQ',     redirectTo: 'faq' },
     { path: 'contact',      component: DocumentComponent },  { path: 'Contact', redirectTo: 'contact' },
     { path: 'help',         component: DocumentComponent },  { path: 'Help',    redirectTo: 'help' },
-    { path: 'docnotfound',  component: NotfoundComponent },  { path: '**',      redirectTo: 'docnotfound' },
+    { path: 'test',         component: DocumentComponent },  { path: 'Test',    redirectTo: 'test' },
+    { path: 'docnotfound',  component: NotfoundComponent },  { path: '**',      redirectTo: 'notfound' },
   ]},
   { path: 'notfound',       component: NotfoundComponent },  { path: '**',       redirectTo: 'notfound' },
 ]
