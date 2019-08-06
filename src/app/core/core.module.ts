@@ -13,6 +13,7 @@ import { TitleCaserPipe } from './title-caser.pipe';
 
 var coreRoutes = [
   {path: '', component: HomeComponent},
+  {path: 'lazy', loadChildren: "../lazy-module/lazy-module.module#LazyModuleModule"},
   {path: 'docs', component: DocumentComponent, children: [
     { path: 'faq',          component: DocumentComponent },  { path: 'FAQ',     redirectTo: 'faq' },
     { path: 'contact',      component: DocumentComponent },  { path: 'Contact', redirectTo: 'contact' },

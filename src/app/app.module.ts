@@ -9,10 +9,6 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './core/header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 
-const appRoutes: Route[] = [
-  { path: 'header', component: HeaderComponent }
-]
-
 @NgModule({
   declarations: [
     AppComponent
@@ -22,7 +18,7 @@ const appRoutes: Route[] = [
     AuthModule,
     CoreModule,
     HttpClientModule,
-    RouterModule.forRoot(appRoutes),
+    RouterModule.forRoot([]),
   ],
   exports: [
     HeaderComponent
