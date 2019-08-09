@@ -11,8 +11,8 @@ import { AuthInterceptor } from './auth-interceptor';
 import { AuthGuardActivateIfLoggedIn, AuthGuardActivateIfLoggedOut, AuthGuardDeactivate } from './auth.guard';
 
 const authRoutes: Route[] = [
-  {path: "login",     component: SigninComponent,   canActivate: [AuthGuardActivateIfLoggedOut]},
-  {path: "register",  component: SignupComponent,   canActivate: [AuthGuardActivateIfLoggedOut],  canDeactivate: [AuthGuardDeactivate]},
+  {path: "login",     component: SigninComponent,   canActivate: [AuthGuardActivateIfLoggedOut], canDeactivate: [AuthGuardDeactivate]},
+  {path: "register",  component: SignupComponent,   canActivate: [AuthGuardActivateIfLoggedOut] },
   {path: "logout",    component: SignoutComponent,  canActivate: [AuthGuardActivateIfLoggedIn]},
 ]
 

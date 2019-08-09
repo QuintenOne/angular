@@ -1,11 +1,48 @@
-<!-- Navigatiebalk: koppen -->
-<ul class="nav nav-pills mr-auto">
-  <li *ngFor="let link of this.links" class="nav-item">
-    <a class="nav-link" 
-      routerLinkActive="active" 
-      [routerLink]="[link.url]"
-      [routerLinkActiveOptions]="{exact: true}">
-      {{ link.displayName | titleCaser}}
-    </a>
-  </li>
-</ul>
+
+<table>
+    <tr>
+      <td>
+          <ul class="nav nav-pills nav-justified">
+              <li *ngIf="this.oldLinkDispayName" class="nav-item">
+                Your came from
+              </li>
+              <li *ngIf="this.currentLinkDispayName && this.oldLinkDispayName" class="nav-item">
+                
+              </li>
+              <li  *ngIf="this.currentLinkDispayName" class="nav-item">
+                You are on
+              </li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+          <ul class="nav nav-pills nav-justified">
+              <li *ngIf="this.oldLinkDispayName" class="nav-item">
+                {{ this.oldLinkDispayName  | titleCaser}}
+              </li>
+              <li *ngIf="this.currentLinkDispayName && this.oldLinkDispayName" class="nav-item">
+                ➔
+              </li>
+              <li  *ngIf="this.currentLinkDispayName" class="nav-item">
+                {{ this.currentLinkDispayName | titleCaser}}
+              </li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+          <ul class="nav nav-pills mr-auto">
+            <li *ngFor="let link of this.links; index as i" class="nav-item">
+              <a class="nav-link" 
+                routerLinkActive="active" 
+                [routerLink]="[link.url]"
+                [routerLinkActiveOptions]="{exact: true}"
+                (click)="changeIndex(i)">
+                {{ link.displayName | titleCaser}}
+              </a>
+            </li>
+        </ul>
+      </td>
+    </tr>
+</table>

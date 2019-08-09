@@ -1,6 +1,6 @@
 export class Link {
-    displayName: string = "Empty"
-    url: string
+    displayName: string;
+    url: string;
 
     constructor(displayName: string, url: string) {
         this.displayName = displayName
