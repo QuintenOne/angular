@@ -7,7 +7,9 @@ export class TitleDirective implements OnInit {
   constructor(private ref: ElementRef) { }
 
   ngOnInit() {
-    this.ref.nativeElement.textContent = this.titleText
+    var element = this.ref.nativeElement
+    element.textContent = this.titleText
+    element.style.color = 'blue';
   }
 
 }
