@@ -12,9 +12,11 @@ export class AuthInterceptor implements HttpInterceptor {
         //In sommige gevallen is er geen token nodig
         
         if (this.authService.token != "")
-            return handler.handle(request.clone({
-                params: request.params.set('auth', this.authService.token)
-            }));
+            return handler.handle(
+                request.clone({
+                    params: request.params.set('auth', this.authService.token)
+                })
+            );
         else
             return handler.handle(request);
     }

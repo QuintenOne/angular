@@ -1,0 +1,3 @@
+<li *ngFor="let doc of docHeads" class="nav-item">
+  <a class="nav-link" [routerLink]="['docs/' + doc]">{{ doc | titleCaser}}</a>
+</li>

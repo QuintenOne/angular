@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import { User } from '../user'
 import { DatabaseService } from '../shared/database.service';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class AuthService {
   loggedIn: boolean = false;
   cached: boolean = false;
 
-  constructor(private database: DatabaseService) {
+  constructor(private database: DatabaseService, private router: Router) {
     if (localStorage.getItem('token') && localStorage.getItem('username')) {
       this.token = localStorage.getItem('token');
       this.username = localStorage.getItem('username');
@@ -38,6 +39,7 @@ export class AuthService {
     if (this.loggedIn)
       firebase.auth().signOut();
     this.updateUser(false);
+    this.router.navigate([''])
   }
 
   signUp(form) {
@@ -52,7 +54,6 @@ export class AuthService {
 
         //Stuurt meerdere requests indien één faalt
         var interval = setInterval(() => {
-          console.log("SignUpAddTimeOut-" + this.token)
           this.database.add("users/" + username, this.user).subscribe(
             () => { clearInterval(interval); }
           )

@@ -10,6 +10,7 @@ import { NotfoundComponent } from './notfound/notfound.component';
 
 import { TitleDirective } from './title.directive';
 import { TitleCaserPipe } from './title-caser.pipe';
+import { SelectComponent } from './select/select.component';
 
 var coreRoutes = [
   {path: '', component: HomeComponent},
@@ -36,7 +37,8 @@ var coreRoutes = [
     DocumentComponent,
     NotfoundComponent,
     TitleDirective,
-    TitleCaserPipe
+    TitleCaserPipe,
+    SelectComponent
   ],
   exports: [
     HeaderComponent

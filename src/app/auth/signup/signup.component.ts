@@ -13,15 +13,15 @@ export class SignupComponent implements OnInit {
 
   constructor(private authService: AuthService) {  }
 
+  /*
   ngOnInit() {
     this.form = new FormGroup({
       "email": new FormControl(null),
       "username": new FormControl(null),
       "password": new FormControl(null) 
     });
-  }
+  }*/
 
-  /*
   ngOnInit() {
     this.form = new FormGroup({
       "email": new FormControl(null, 
@@ -41,7 +41,7 @@ export class SignupComponent implements OnInit {
         ])) 
     });
   }
-  */
+
 
   signup(value = undefined) {
     this.submitted = true;

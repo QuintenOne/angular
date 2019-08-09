@@ -4,12 +4,18 @@
   <!-- Navigatiebalk: koppen -->
   <ul class="navbar-nav mr-auto">
     <li class="nav-item">
-      <a class="nav-link" [routerLink]="''">Home</a>
+      <a class="nav-link" routerLink=''>Home</a>
     </li>
-    <li *ngFor="let doc of docsHeads" class="nav-item">
+    <li class="nav-item">
+      <a class="nav-link" routerLink='./lazy'>Lazy</a>
+    </li>
+    <!--<li *ngFor="let doc of docsHeads" class="nav-item">
       <a class="nav-link" [routerLink]="['docs/' + doc]">{{ doc | titleCaser}}</a>
-    </li>
+    </li>-->
+    
+    <app-select></app-select>
   </ul>
+
 
      <!-- Navigatiebalk: menu voor account -->
   <div *ngIf="this.updateCached(); then loggedin else loggedout"> </div>
