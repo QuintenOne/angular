@@ -3,8 +3,7 @@
       <div *ngIf="form.get('password').invalid && form.get('password').touched" class="alert alert-danger" role="alert"> The password is too short! Atleast 6 characters </div>
 
 <form [formGroup]="form" id="form">
-  <div id="form">
-    <h3>SignIn</h3>
+    <h3>Inloggen</h3>
 
     <!--  Veld: email  -->
       <div class="form-item">
@@ -25,5 +24,4 @@
     <!--  Knop: inloggen  -->
     <button class="btn primary" type="submit" [disabled]="" (click)="signin()">Sign In</button>
     
-  </div>
 </form>
