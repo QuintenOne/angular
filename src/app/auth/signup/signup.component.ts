@@ -4,7 +4,8 @@ import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-signup',
-  templateUrl: './signup.component.html'
+  templateUrl: './signup.component.html',
+  styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
   form: FormGroup;
@@ -12,15 +13,6 @@ export class SignupComponent implements OnInit {
   submitted: boolean = false;
 
   constructor(private authService: AuthService) {  }
-
-  /*
-  ngOnInit() {
-    this.form = new FormGroup({
-      "email": new FormControl(null),
-      "username": new FormControl(null),
-      "password": new FormControl(null) 
-    });
-  }*/
 
   ngOnInit() {
     this.form = new FormGroup({
@@ -32,7 +24,7 @@ export class SignupComponent implements OnInit {
       ),
       "username": new FormControl(null, 
         [Validators.required], 
-        //this.ValidatorIsUsernameTaken.bind(this)
+        this.ValidatorIsUsernameTaken.bind(this)
         ),
       "password": new FormControl(null, 
         Validators.compose([
@@ -40,6 +32,9 @@ export class SignupComponent implements OnInit {
           this.ValidatorIsPasswordValid.bind(this)
         ])) 
     });
+
+    this.form.statusChanges.subscribe((staat) => console.log(staat));
+    
   }
 
 

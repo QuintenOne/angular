@@ -38,7 +38,7 @@ var coreRoutes = [
     NotfoundComponent,
     TitleDirective,
     TitleCaserPipe,
-    SelectComponent
+    SelectComponent,
   ],
   exports: [
     HeaderComponent

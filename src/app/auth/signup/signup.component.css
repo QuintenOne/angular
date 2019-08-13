@@ -1,0 +1,14 @@
+input.ng-invalid.ng-touched { 
+    border: 1px solid red; 
+    background-color: #ddd
+}
+
+#form {
+    text-align: center;
+    margin: 10% 0px;
+    padding: 0px 50%;
+}
+
+.form-item {
+    margin: 10px 0px;
+}

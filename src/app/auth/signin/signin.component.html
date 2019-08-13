@@ -1,18 +1,26 @@
-<form [formGroup]="form">
+
+      <div *ngIf="form.get('email').invalid && form.get('email').touched" class="alert alert-danger" role="alert"> The email is not correctly formatted! </div>
+      <div *ngIf="form.get('password').invalid && form.get('password').touched" class="alert alert-danger" role="alert"> The password is too short! Atleast 6 characters </div>
+
+<form [formGroup]="form" id="form">
   <div id="form">
     <h3>SignIn</h3>
 
     <!--  Veld: email  -->
+      <div class="form-item">
     <div class="input-group-prepend">
       <span class="input-group-text">@</span>
       <input type="email" formControlName="email" placeholder="Email">
     </div>
+  </div>
 
     <!--  Veld: wachtwoord  --> 
+      <div class="form-item">
     <div class="input-group-append">
       <span class="input-group-text">*</span>
       <input type="password" formControlName="password" placeholder="Password">
     </div>
+  </div>
     
     <!--  Knop: inloggen  -->
     <button class="btn primary" type="submit" [disabled]="" (click)="signin()">Sign In</button>
