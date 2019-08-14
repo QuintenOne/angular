@@ -3,6 +3,7 @@ import { SignupComponent } from './signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { HttpClient, HttpHandler } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 describe('SignUpComponent', () => {
     let component: SignupComponent
@@ -14,7 +15,7 @@ describe('SignUpComponent', () => {
             declarations: [SignupComponent],
             imports: [ FormsModule, ReactiveFormsModule ],
             providers: [
-                AuthService, HttpClient, HttpHandler
+                AuthService, HttpClient, HttpHandler, Router
             ]
         })
     })

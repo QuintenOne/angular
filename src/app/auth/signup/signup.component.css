@@ -5,7 +5,7 @@ input.ng-invalid.ng-touched {
 
 #form {
     text-align: center;
-    margin: 10% 0;
+    margin: 50px 0;
     padding: 0px 40%;
     border: 2px dotted black;
     background-color: #eee
@@ -13,4 +13,9 @@ input.ng-invalid.ng-touched {
 
 .form-item {
     margin: 10px 0px;
+}
+
+.input-group-text {
+    width: 100px;
+    color: red
 }

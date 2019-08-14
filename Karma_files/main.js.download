@@ -1,0 +1,261 @@
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// install a JSONP callback for chunk loading
+/******/ 	function webpackJsonpCallback(data) {
+/******/ 		var chunkIds = data[0];
+/******/ 		var moreModules = data[1];
+/******/ 		var executeModules = data[2];
+/******/ 
+/******/ 		// add "moreModules" to the modules object,
+/******/ 		// then flag all "chunkIds" as loaded and fire callback
+/******/ 		var moduleId, chunkId, i = 0, resolves = [];
+/******/ 		for(;i < chunkIds.length; i++) {
+/******/ 			chunkId = chunkIds[i];
+/******/ 			if(installedChunks[chunkId]) {
+/******/ 				resolves.push(installedChunks[chunkId][0]);
+/******/ 			}
+/******/ 			installedChunks[chunkId] = 0;
+/******/ 		}
+/******/ 		for(moduleId in moreModules) {
+/******/ 			if(Object.prototype.hasOwnProperty.call(moreModules, moduleId)) {
+/******/ 				modules[moduleId] = moreModules[moduleId];
+/******/ 			}
+/******/ 		}
+/******/ 		if(parentJsonpFunction) parentJsonpFunction(data);
+/******/
+/******/ 		while(resolves.length) {
+/******/ 			resolves.shift()();
+/******/ 		}
+/******/
+/******/ 		// add entry modules from loaded chunk to deferred list
+/******/ 		deferredModules.push.apply(deferredModules, executeModules || []);
+/******/
+/******/ 		// run deferred modules when all chunks ready
+/******/ 		return checkDeferredModules();
+/******/ 	};
+/******/ 	function checkDeferredModules() {
+/******/ 		var result;
+/******/ 		for(var i = 0; i < deferredModules.length; i++) {
+/******/ 			var deferredModule = deferredModules[i];
+/******/ 			var fulfilled = true;
+/******/ 			for(var j = 1; j < deferredModule.length; j++) {
+/******/ 				var depId = deferredModule[j];
+/******/ 				if(installedChunks[depId] !== 0) fulfilled = false;
+/******/ 			}
+/******/ 			if(fulfilled) {
+/******/ 				deferredModules.splice(i--, 1);
+/******/ 				result = __webpack_require__(__webpack_require__.s = deferredModule[0]);
+/******/ 			}
+/******/ 		}
+/******/ 		return result;
+/******/ 	}
+/******/
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// object to store loaded and loading chunks
+/******/ 	// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 	// Promise = chunk loading, 0 = chunk loaded
+/******/ 	var installedChunks = {
+/******/ 		"main": 0
+/******/ 	};
+/******/
+/******/ 	var deferredModules = [];
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/_karma_webpack_/";
+/******/
+/******/ 	var jsonpArray = window["webpackJsonp"] = window["webpackJsonp"] || [];
+/******/ 	var oldJsonpFunction = jsonpArray.push.bind(jsonpArray);
+/******/ 	jsonpArray.push = webpackJsonpCallback;
+/******/ 	jsonpArray = jsonpArray.slice();
+/******/ 	for(var i = 0; i < jsonpArray.length; i++) webpackJsonpCallback(jsonpArray[i]);
+/******/ 	var parentJsonpFunction = oldJsonpFunction;
+/******/
+/******/
+/******/ 	// add entry module to deferred list
+/******/ 	deferredModules.push(["./src/test.ts","vendor"]);
+/******/ 	// run deferred modules when ready
+/******/ 	return checkDeferredModules();
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./node_modules/webpack/buildin/global.js":
+/*!***********************************!*\
+  !*** (webpack)/buildin/global.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("var g;\n\n// This works in non-strict mode\ng = (function() {\n\treturn this;\n})();\n\ntry {\n\t// This works if eval is allowed (see CSP)\n\tg = g || Function(\"return this\")() || (1, eval)(\"this\");\n} catch (e) {\n\t// This works if the window reference is available\n\tif (typeof window === \"object\") g = window;\n}\n\n// g can still be undefined, but nothing to do about it...\n// We return undefined, instead of nothing here, so it's\n// easier to handle this case. if(!global) { ...}\n\nmodule.exports = g;\n\n\n//# sourceURL=(webpack)/buildin/global.js?");
+
+/***/ }),
+
+/***/ "./src sync recursive \\.spec\\.ts$":
+/*!******************************!*\
+  !*** ./src sync \.spec\.ts$ ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var map = {\n\t\"./app/auth/signup/signup.component.spec.ts\": \"./src/app/auth/signup/signup.component.spec.ts\"\n};\n\n\nfunction webpackContext(req) {\n\tvar id = webpackContextResolve(req);\n\treturn __webpack_require__(id);\n}\nfunction webpackContextResolve(req) {\n\tvar id = map[req];\n\tif(!(id + 1)) { // check for number or string\n\t\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\t\te.code = 'MODULE_NOT_FOUND';\n\t\tthrow e;\n\t}\n\treturn id;\n}\nwebpackContext.keys = function webpackContextKeys() {\n\treturn Object.keys(map);\n};\nwebpackContext.resolve = webpackContextResolve;\nmodule.exports = webpackContext;\nwebpackContext.id = \"./src sync recursive \\\\.spec\\\\.ts$\";\n\n//# sourceURL=./src_sync_\\.spec\\.ts$?");
+
+/***/ }),
+
+/***/ "./src/$$_lazy_route_resource lazy recursive":
+/*!**********************************************************!*\
+  !*** ./src/$$_lazy_route_resource lazy namespace object ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("function webpackEmptyAsyncContext(req) {\n\t// Here Promise.resolve().then() is used instead of new Promise() to prevent\n\t// uncaught exception popping up in devtools\n\treturn Promise.resolve().then(function() {\n\t\tvar e = new Error(\"Cannot find module '\" + req + \"'\");\n\t\te.code = 'MODULE_NOT_FOUND';\n\t\tthrow e;\n\t});\n}\nwebpackEmptyAsyncContext.keys = function() { return []; };\nwebpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;\nmodule.exports = webpackEmptyAsyncContext;\nwebpackEmptyAsyncContext.id = \"./src/$$_lazy_route_resource lazy recursive\";\n\n//# sourceURL=./src/$_lazy_route_resource_lazy_namespace_object?");
+
+/***/ }),
+
+/***/ "./src/app/auth/auth.service.ts":
+/*!**************************************!*\
+  !*** ./src/app/auth/auth.service.ts ***!
+  \**************************************/
+/*! exports provided: AuthService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"AuthService\", function() { return AuthService; });\n/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ \"./node_modules/@angular/core/fesm5/core.js\");\n/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! firebase */ \"./node_modules/firebase/dist/index.cjs.js\");\n/* harmony import */ var firebase__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(firebase__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _shared_database_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../shared/database.service */ \"./src/app/shared/database.service.ts\");\nvar __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {\n    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;\n    if (typeof Reflect === \"object\" && typeof Reflect.decorate === \"function\") r = Reflect.decorate(decorators, target, key, desc);\n    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;\n    return c > 3 && r && Object.defineProperty(target, key, r), r;\n};\nvar __metadata = (undefined && undefined.__metadata) || function (k, v) {\n    if (typeof Reflect === \"object\" && typeof Reflect.metadata === \"function\") return Reflect.metadata(k, v);\n};\n\n\n\nvar AuthService = /** @class */ (function () {\n    function AuthService(database) {\n        this.database = database;\n        this.user = { \"uid\": \"NaN\", \"email\": \"NaN\" };\n        this.username = \"\";\n        this.token = \"\";\n        this.loggedIn = false;\n        this.cached = false;\n        if (localStorage.getItem('token') && localStorage.getItem('username')) {\n            this.token = localStorage.getItem('token');\n            this.username = localStorage.getItem('username');\n            this.cached = true;\n        }\n    }\n    AuthService.prototype.signIn = function (form) {\n        var _this = this;\n        firebase__WEBPACK_IMPORTED_MODULE_1__[\"auth\"]().signInWithEmailAndPassword(form.email, form.password)\n            .then(function (userData) { _this.updateUser(true, userData); })\n            .catch(function () { _this.updateUser(false); });\n    };\n    AuthService.prototype.signOut = function () {\n        if (this.loggedIn)\n            firebase__WEBPACK_IMPORTED_MODULE_1__[\"auth\"]().signOut();\n        this.updateUser(false);\n    };\n    AuthService.prototype.signUp = function (form) {\n        var _this = this;\n        var email = form.email;\n        var username = form.username;\n        var password = form.password;\n        firebase__WEBPACK_IMPORTED_MODULE_1__[\"auth\"]().createUserWithEmailAndPassword(email, password)\n            .then(function (response) {\n            _this.updateUser(true, response, username);\n            console.table(_this.user);\n            var interval = setInterval(function () {\n                console.log(\"SignUpAddTimeOut-\" + _this.token);\n                _this.database.add(\"users/\" + username, _this.user).subscribe(function () { clearInterval(interval); });\n            }, 1000);\n        }, function () { _this.updateUser(false); });\n        return this.loggedIn;\n    };\n    AuthService.prototype.updateUser = function (_loggedIn, userData, _username) {\n        var _this = this;\n        if (userData === void 0) { userData = undefined; }\n        if (_username === void 0) { _username = undefined; }\n        if (_loggedIn == true) {\n            this.user = { \"uid\": userData[\"user\"][\"uid\"], \"email\": userData[\"user\"][\"email\"] };\n            this.loggedIn = true;\n            this.cached = true;\n            //SET USERNAME\n            if (_username == undefined) {\n                var getUsernameTries = 0;\n                var interval = setInterval(function () {\n                    _this.database.get(\"users\").subscribe(function (data) {\n                        var keys = Object.keys(data);\n                        for (var i = 0; i < keys.length; i += 1) {\n                            if (data[keys[i]]['email'] == _this.user.email) {\n                                _this.username = keys[i];\n                                localStorage.setItem('username', keys[i]);\n                                clearInterval(interval);\n                            }\n                        }\n                    }, function (error) {\n                        console.error(\"AuthServiceGetUsername-\" + error);\n                        _this.username = \"Error: Not Authenticated\";\n                        localStorage.setItem('username', \"Error: Not Authenticated\");\n                    });\n                    getUsernameTries += 1;\n                    if (getUsernameTries > 10) {\n                        clearInterval(interval);\n                        console.log(\"Try \" + getUsernameTries + \"/10 of getting username\");\n                    }\n                }, 100);\n            }\n            else {\n                this.username = _username;\n                localStorage.setItem('username', _username);\n            }\n            //SET TOKEN\n            firebase__WEBPACK_IMPORTED_MODULE_1__[\"auth\"]().currentUser.getIdToken()\n                .then(function (token) {\n                _this.token = token;\n                localStorage.setItem('token', _this.token);\n            }, function (error) {\n                console.error(\"AuthServiceUpdateToken-\" + error);\n            });\n        }\n        else {\n            this.loggedIn = false;\n            this.user = { \"uid\": \"NaN\", \"email\": \"NaN\" };\n            this.username = \"\";\n            localStorage.setItem('username', \"\");\n            this.token = \"\";\n            localStorage.setItem('token', \"\");\n            this.cached = false;\n        }\n    };\n    AuthService = __decorate([\n        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__[\"Injectable\"])({\n            providedIn: 'root'\n        }),\n        __metadata(\"design:paramtypes\", [_shared_database_service__WEBPACK_IMPORTED_MODULE_2__[\"DatabaseService\"]])\n    ], AuthService);\n    return AuthService;\n}());\n\n\n\n//# sourceURL=./src/app/auth/auth.service.ts?");
+
+/***/ }),
+
+/***/ "./src/app/auth/signup/signup.component.html":
+/*!***************************************************!*\
+  !*** ./src/app/auth/signup/signup.component.html ***!
+  \***************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = \"<form [formGroup]=\\\"form\\\">\\n  <div>\\n    <h3>SignUp</h3>\\n\\n    <div class=\\\"input-group-prepend\\\">\\n      <span class=\\\"input-group-text\\\">@</span>\\n      <input type=\\\"email\\\" formControlName=\\\"email\\\"  placeholder=\\\"Email\\\">\\n    </div>\\n\\n    <div class=\\\"input-group-prepend\\\">\\n      <span class=\\\"input-group-text\\\">👤</span>\\n      <input type=\\\"text\\\" formControlName=\\\"username\\\" placeholder=\\\"Username\\\">\\n    </div>\\n\\n    <div class=\\\"input-group-append\\\">\\n      <span class=\\\"input-group-text\\\">*</span>\\n      <input type=\\\"password\\\" formControlName=\\\"password\\\" placeholder=\\\"Password\\\">\\n    </div>\\n\\n    <div *ngIf=\\\"getErrorWithID(0)\\\" class=\\\"alert alert-danger\\\" role=\\\"alert\\\">\\n      An email is required\\n    </div>\\n\\n    <div *ngIf=\\\"getErrorWithID(0)\\\" class=\\\"alert alert-danger\\\" role=\\\"alert\\\">\\n      The email is not correctly formatted!\\n    </div>\\n\\n    <div *ngIf=\\\"getErrorWithID(0)\\\" class=\\\"alert alert-danger\\\" role=\\\"alert\\\">\\n      An username is required\\n    </div>\\n    \\n    <div *ngIf=\\\"getErrorWithID(0)\\\" class=\\\"alert alert-danger\\\" role=\\\"alert\\\">\\n      The password is too short! Atleast 6 characters\\n    </div>\\n    \\n    <button class=\\\"btn primary\\\" type=\\\"submit\\\" [disabled]=\\\"form.invalid\\\" (click)=\\\"signup()\\\">Sign Up</button>\\n    \\n  </div>\\n</form>\"\n\n//# sourceURL=./src/app/auth/signup/signup.component.html?");
+
+/***/ }),
+
+/***/ "./src/app/auth/signup/signup.component.spec.ts":
+/*!******************************************************!*\
+  !*** ./src/app/auth/signup/signup.component.spec.ts ***!
+  \******************************************************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _angular_core_testing__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core/testing */ \"./node_modules/@angular/core/fesm5/testing.js\");\n/* harmony import */ var _signup_component__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./signup.component */ \"./src/app/auth/signup/signup.component.ts\");\n/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ \"./node_modules/@angular/forms/fesm5/forms.js\");\n/* harmony import */ var _auth_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../auth.service */ \"./src/app/auth/auth.service.ts\");\n/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ \"./node_modules/@angular/common/fesm5/http.js\");\nvar __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {\n    return new (P || (P = Promise))(function (resolve, reject) {\n        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }\n        function rejected(value) { try { step(generator[\"throw\"](value)); } catch (e) { reject(e); } }\n        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }\n        step((generator = generator.apply(thisArg, _arguments || [])).next());\n    });\n};\nvar __generator = (undefined && undefined.__generator) || function (thisArg, body) {\n    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;\n    return g = { next: verb(0), \"throw\": verb(1), \"return\": verb(2) }, typeof Symbol === \"function\" && (g[Symbol.iterator] = function() { return this; }), g;\n    function verb(n) { return function (v) { return step([n, v]); }; }\n    function step(op) {\n        if (f) throw new TypeError(\"Generator is already executing.\");\n        while (_) try {\n            if (f = 1, y && (t = op[0] & 2 ? y[\"return\"] : op[0] ? y[\"throw\"] || ((t = y[\"return\"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;\n            if (y = 0, t) op = [op[0] & 2, t.value];\n            switch (op[0]) {\n                case 0: case 1: t = op; break;\n                case 4: _.label++; return { value: op[1], done: false };\n                case 5: _.label++; y = op[1]; op = [0]; continue;\n                case 7: op = _.ops.pop(); _.trys.pop(); continue;\n                default:\n                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }\n                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }\n                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }\n                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }\n                    if (t[2]) _.ops.pop();\n                    _.trys.pop(); continue;\n            }\n            op = body.call(thisArg, _);\n        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }\n        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };\n    }\n};\nvar _this = undefined;\n\n\n\n\n\ndescribe('SignUpComponent', function () {\n    var component;\n    var fixture;\n    var authService;\n    var MockRouter = /** @class */ (function () {\n        function MockRouter() {\n        }\n        return MockRouter;\n    }());\n    beforeEach(function () { return __awaiter(_this, void 0, void 0, function () {\n        return __generator(this, function (_a) {\n            _angular_core_testing__WEBPACK_IMPORTED_MODULE_0__[\"TestBed\"].configureTestingModule({\n                declarations: [_signup_component__WEBPACK_IMPORTED_MODULE_1__[\"SignupComponent\"]],\n                imports: [_angular_forms__WEBPACK_IMPORTED_MODULE_2__[\"FormsModule\"], _angular_forms__WEBPACK_IMPORTED_MODULE_2__[\"ReactiveFormsModule\"]],\n                providers: [\n                    _auth_service__WEBPACK_IMPORTED_MODULE_3__[\"AuthService\"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__[\"HttpClient\"], _angular_common_http__WEBPACK_IMPORTED_MODULE_4__[\"HttpHandler\"]\n                ]\n            });\n            return [2 /*return*/];\n        });\n    }); });\n    beforeEach(function () {\n        fixture = _angular_core_testing__WEBPACK_IMPORTED_MODULE_0__[\"TestBed\"].createComponent(_signup_component__WEBPACK_IMPORTED_MODULE_1__[\"SignupComponent\"]);\n        component = fixture.componentInstance;\n        authService = fixture.debugElement.injector.get(_auth_service__WEBPACK_IMPORTED_MODULE_3__[\"AuthService\"]);\n    });\n    it('should create', function () {\n        expect(component).toBeTruthy();\n    });\n    it('should be succesfull if signed up', function () {\n        var spy = spyOn(authService, 'signUp').and.returnValue(Promise.resolve(false));\n        component.signup({\n            email: \"jasmine@croes.be\",\n            username: \"Jasmine\",\n            password: \"123456\"\n        });\n        fixture.whenStable().then(function () {\n            expect(component.loginSuccess).toBeTruthy();\n        });\n    });\n});\n\n\n//# sourceURL=./src/app/auth/signup/signup.component.spec.ts?");
+
+/***/ }),
+
+/***/ "./src/app/auth/signup/signup.component.ts":
+/*!*************************************************!*\
+  !*** ./src/app/auth/signup/signup.component.ts ***!
+  \*************************************************/
+/*! exports provided: SignupComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"SignupComponent\", function() { return SignupComponent; });\n/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ \"./node_modules/@angular/core/fesm5/core.js\");\n/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/forms */ \"./node_modules/@angular/forms/fesm5/forms.js\");\n/* harmony import */ var _auth_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../auth.service */ \"./src/app/auth/auth.service.ts\");\nvar __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {\n    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;\n    if (typeof Reflect === \"object\" && typeof Reflect.decorate === \"function\") r = Reflect.decorate(decorators, target, key, desc);\n    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;\n    return c > 3 && r && Object.defineProperty(target, key, r), r;\n};\nvar __metadata = (undefined && undefined.__metadata) || function (k, v) {\n    if (typeof Reflect === \"object\" && typeof Reflect.metadata === \"function\") return Reflect.metadata(k, v);\n};\n\n\n\nvar SignupComponent = /** @class */ (function () {\n    function SignupComponent(authService) {\n        this.authService = authService;\n        this.loginSuccess = false;\n        this.submitted = false;\n    }\n    SignupComponent.prototype.ngOnInit = function () {\n        this.form = new _angular_forms__WEBPACK_IMPORTED_MODULE_1__[\"FormGroup\"]({\n            \"email\": new _angular_forms__WEBPACK_IMPORTED_MODULE_1__[\"FormControl\"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_1__[\"Validators\"].compose([\n                _angular_forms__WEBPACK_IMPORTED_MODULE_1__[\"Validators\"].required,\n                this.ValidatorIsEmailValid.bind(this)\n            ])),\n            \"username\": new _angular_forms__WEBPACK_IMPORTED_MODULE_1__[\"FormControl\"](null, [_angular_forms__WEBPACK_IMPORTED_MODULE_1__[\"Validators\"].required]),\n            \"password\": new _angular_forms__WEBPACK_IMPORTED_MODULE_1__[\"FormControl\"](null, _angular_forms__WEBPACK_IMPORTED_MODULE_1__[\"Validators\"].compose([\n                _angular_forms__WEBPACK_IMPORTED_MODULE_1__[\"Validators\"].required,\n                this.ValidatorIsPasswordValid.bind(this)\n            ]))\n        });\n    };\n    /*ngOnInit() {\n      this.form = new FormGroup({\n        \"email\": new FormControl(null,\n          [ Validators.required,  this.ValidatorIsEmailValid.bind(this) ]\n        ),\n        \"username\": new FormControl(null,\n          [ Validators.required ],\n          //this.ValidatorIsUsernameTaken.bind(this)\n        ),\n        \"password\": new FormControl(null,\n          [ Validators.required,  this.ValidatorIsPasswordValid.bind(this) ]\n        )\n      });\n    }*/\n    SignupComponent.prototype.signup = function (value) {\n        if (value === void 0) { value = undefined; }\n        this.submitted = true;\n        if (value)\n            this.loginSuccess = this.authService.signUp(value);\n        else\n            this.authService.signUp(this.form.value);\n    };\n    SignupComponent.prototype.ValidatorIsPasswordValid = function (formControl) {\n        if ((/[0-9a-zA-Z]{6,}/).test(formControl.value))\n            return null;\n        else\n            return { passwordInvalid: true };\n    };\n    SignupComponent.prototype.ValidatorIsEmailValid = function (formControl) {\n        if ((/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/).test(formControl.value))\n            return null;\n        else\n            return { emailInvalid: true };\n    };\n    SignupComponent.prototype.ValidatorIsUsernameTaken = function (formControl) {\n        return new Promise(function (resolve, reject) {\n            if (formControl.value == \"Quinten\")\n                resolve({ 'usernameTaken': true });\n            else\n                reject(null);\n        });\n    };\n    SignupComponent.prototype.showError = function (key, value) {\n        return (this.form.get(key).dirty && value);\n    };\n    SignupComponent.prototype.getErrorWithID = function (eID) {\n        if (eID == 0)\n            if (this.form.controls.email.errors[\"required\"])\n                return this.form.get(\"email\").dirty;\n        if (eID == 1)\n            if (this.form.controls.email.errors[\"emailInvalid\"])\n                return this.form.get(\"email\").dirty;\n        if (eID == 2)\n            if (this.form.controls.username.errors[\"required\"])\n                return this.form.get(\"username\").dirty;\n        if (eID == 3)\n            if (this.form.controls.email.errors[\"passwordInvalid\"])\n                return this.form.get(\"password\").dirty;\n        return false;\n    };\n    SignupComponent = __decorate([\n        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__[\"Component\"])({\n            selector: 'app-signup',\n            template: __webpack_require__(/*! ./signup.component.html */ \"./src/app/auth/signup/signup.component.html\")\n        }),\n        __metadata(\"design:paramtypes\", [_auth_service__WEBPACK_IMPORTED_MODULE_2__[\"AuthService\"]])\n    ], SignupComponent);\n    return SignupComponent;\n}());\n\n/*\nthis.form.controls.email.errors.required\nthis.form.controls.email.errors.emailInvalid\nthis.form.controls.username.errors.required\nthis.form.controls.password.errors.passwordInvalid*/ \n\n\n//# sourceURL=./src/app/auth/signup/signup.component.ts?");
+
+/***/ }),
+
+/***/ "./src/app/shared/database.service.ts":
+/*!********************************************!*\
+  !*** ./src/app/shared/database.service.ts ***!
+  \********************************************/
+/*! exports provided: DatabaseService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"DatabaseService\", function() { return DatabaseService; });\n/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ \"./node_modules/@angular/core/fesm5/core.js\");\n/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common/http */ \"./node_modules/@angular/common/fesm5/http.js\");\n/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ \"./node_modules/rxjs/_esm5/index.js\");\nvar __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {\n    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;\n    if (typeof Reflect === \"object\" && typeof Reflect.decorate === \"function\") r = Reflect.decorate(decorators, target, key, desc);\n    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;\n    return c > 3 && r && Object.defineProperty(target, key, r), r;\n};\nvar __metadata = (undefined && undefined.__metadata) || function (k, v) {\n    if (typeof Reflect === \"object\" && typeof Reflect.metadata === \"function\") return Reflect.metadata(k, v);\n};\n\n\n\nvar DatabaseService = /** @class */ (function () {\n    function DatabaseService(httpClient) {\n        this.httpClient = httpClient;\n    }\n    DatabaseService.prototype.addSubject = function (key, value) {\n        var subject = new rxjs__WEBPACK_IMPORTED_MODULE_2__[\"Subject\"]();\n        this.httpClient.put(\"https://schoolfirebaseqc.firebaseio.com/\" + key + \".json\", value).subscribe(function (data) { subject.next(data); }, function (error) { console.error(error); });\n        return subject;\n    };\n    DatabaseService.prototype.add = function (key, value) {\n        return this.httpClient.put(\"https://schoolfirebaseqc.firebaseio.com/\" + key + \".json\", value);\n    };\n    DatabaseService.prototype.getSubject = function (key) {\n        var subject = new rxjs__WEBPACK_IMPORTED_MODULE_2__[\"Subject\"]();\n        this.httpClient.get(\"https://schoolfirebaseqc.firebaseio.com/\" + key + \".json\").subscribe(function (data) { subject.next(data); }, function (error) { console.error(error); });\n        return subject;\n    };\n    DatabaseService.prototype.get = function (key) {\n        return this.httpClient.get(\"https://schoolfirebaseqc.firebaseio.com/\" + key + \".json\");\n    };\n    DatabaseService.prototype.getDocs = function () {\n        return {\n            \"contact\": \"Klik hier 66-545-4965\",\n            \"faq\": \"<h1>FAQ</h1>\",\n            \"help\": \"<code>main() { print('Hello World') }</code>\"\n        };\n    };\n    DatabaseService = __decorate([\n        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__[\"Injectable\"])({\n            providedIn: 'root'\n        }),\n        __metadata(\"design:paramtypes\", [_angular_common_http__WEBPACK_IMPORTED_MODULE_1__[\"HttpClient\"]])\n    ], DatabaseService);\n    return DatabaseService;\n}());\n\n\n\n//# sourceURL=./src/app/shared/database.service.ts?");
+
+/***/ }),
+
+/***/ "./src/test.ts":
+/*!*********************!*\
+  !*** ./src/test.ts ***!
+  \*********************/
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var zone_js_dist_zone_testing__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! zone.js/dist/zone-testing */ \"./node_modules/zone.js/dist/zone-testing.js\");\n/* harmony import */ var zone_js_dist_zone_testing__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(zone_js_dist_zone_testing__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _angular_core_testing__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core/testing */ \"./node_modules/@angular/core/fesm5/testing.js\");\n/* harmony import */ var _angular_platform_browser_dynamic_testing__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser-dynamic/testing */ \"./node_modules/@angular/platform-browser-dynamic/fesm5/testing.js\");\n// This file is required by karma.conf.js and loads recursively all the .spec and framework files\n\n\n\n// First, initialize the Angular testing environment.\nObject(_angular_core_testing__WEBPACK_IMPORTED_MODULE_1__[\"getTestBed\"])().initTestEnvironment(_angular_platform_browser_dynamic_testing__WEBPACK_IMPORTED_MODULE_2__[\"BrowserDynamicTestingModule\"], Object(_angular_platform_browser_dynamic_testing__WEBPACK_IMPORTED_MODULE_2__[\"platformBrowserDynamicTesting\"])());\n// Then we find all the tests.\nvar context = __webpack_require__(\"./src sync recursive \\\\.spec\\\\.ts$\");\n// And load the modules.\ncontext.keys().map(context);\n\n\n//# sourceURL=./src/test.ts?");
+
+/***/ })
+
+/******/ });

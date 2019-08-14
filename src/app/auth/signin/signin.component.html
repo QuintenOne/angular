@@ -1,7 +1,4 @@
 
-      <div *ngIf="form.get('email').invalid && form.get('email').touched" class="alert alert-danger" role="alert"> The email is not correctly formatted! </div>
-      <div *ngIf="form.get('password').invalid && form.get('password').touched" class="alert alert-danger" role="alert"> The password is too short! Atleast 6 characters </div>
-
 <form [formGroup]="form" id="form">
     <h3>Inloggen</h3>
 
@@ -25,3 +22,6 @@
     <button class="btn primary" type="submit" [disabled]="" (click)="signin()">Sign In</button>
     
 </form>
+
+<div *ngIf="form.get('email').invalid && form.get('email').touched" class="alert alert-danger" role="alert"> The email is not correctly formatted! </div>
+<div *ngIf="form.get('password').invalid && form.get('password').touched" class="alert alert-danger" role="alert"> The password is too short! Atleast 6 characters </div>
